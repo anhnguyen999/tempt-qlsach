@@ -1,0 +1,95 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<QuanLySachDatabaseFirst.DataContext.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutTheme.cshtml";
+}
+
+<div class="widget-box">
+    <div class="widget-title">
+        <span class="icon"><i class="icon-th"></i></span>
+        <h5>@Html.ActionLink("Create New", "Create")</h5>
+    </div>
+    <div class="widget-content nopadding">
+        <table class="table table-bordered data-table">
+            <tr>
+                <th>
+                    Tên Sản phẩm
+                </th>
+                <th>
+                    Giá mua
+                </th>
+                <th>
+                    Giá bán
+                </th>
+                <th>
+                    Loại sản phẩm
+                </th>
+                <th>
+                    Chủ đề
+                </th>
+                <th>
+                    Thông tin
+                </th>
+                <th>
+                    Giới tính
+                </th>
+                <th>
+                    Ngày nhập
+                </th>
+                <th>
+                    Hình
+                </th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaMua)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaBan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoaiSanPham.Ten)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThongTin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayNhapHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HinhAnh)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaSP })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+        Trang
+        @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        của
+        @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
